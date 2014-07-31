@@ -1,0 +1,1559 @@
+Index: config/initializers/inflections.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/inflections.rb	(revision )
++++ config/initializers/inflections.rb	(revision )
+@@ -0,0 +1,16 @@
++# Be sure to restart your server when you modify this file.
++
++# Add new inflection rules using the following format. Inflections
++# are locale specific, and you may define rules for as many different
++# locales as you wish. All of these examples are active by default:
++# ActiveSupport::Inflector.inflections(:en) do |inflect|
++#   inflect.plural /^(ox)$/i, '\1en'
++#   inflect.singular /^(ox)en/i, '\1'
++#   inflect.irregular 'person', 'people'
++#   inflect.uncountable %w( fish sheep )
++# end
++
++# These inflection rules are supported but not enabled by default:
++# ActiveSupport::Inflector.inflections(:en) do |inflect|
++#   inflect.acronym 'RESTful'
++# end
+Index: config/secrets.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/secrets.yml	(revision )
++++ config/secrets.yml	(revision )
+@@ -0,0 +1,22 @@
++# Be sure to restart your server when you modify this file.
++
++# Your secret key is used for verifying the integrity of signed cookies.
++# If you change this key, all old signed cookies will become invalid!
++
++# Make sure the secret is at least 30 characters and all random,
++# no regular words or you'll be exposed to dictionary attacks.
++# You can use `rake secret` to generate a secure secret key.
++
++# Make sure the secrets in this file are kept private
++# if you're sharing your code publicly.
++
++development:
++  secret_key_base: ad31391576149ee4a2c134266aaa1287ddc5a8305f0bb46af93562c44a7646d71d52faa51c4835bb6fd99cee3b552130b42e3a16520e2fbf4748a1ceb1c66ea7
++
++test:
++  secret_key_base: d77bb2a34052efa20a673616a28930f29d04892025203e8e1aa813ff6a4d04e6fb47bd25066e733861683c8d26d6df54d5af157910ff125f243fe95fa53757de
++
++# Do not keep production secrets in the repository,
++# instead read values from the environment.
++production:
++  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+Index: db/seeds.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- db/seeds.rb	(revision )
++++ db/seeds.rb	(revision )
+@@ -0,0 +1,7 @@
++# This file should contain all the record creation needed to seed the database with its default values.
++# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
++#
++# Examples:
++#
++#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
++#   Mayor.create(name: 'Emanuel', city: cities.first)
+Index: config/boot.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/boot.rb	(revision )
++++ config/boot.rb	(revision )
+@@ -0,0 +1,4 @@
++# Set up gems listed in the Gemfile.
++ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
++
++require 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])
+Index: config/environment.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/environment.rb	(revision )
++++ config/environment.rb	(revision )
+@@ -0,0 +1,5 @@
++# Load the Rails application.
++require File.expand_path('../application', __FILE__)
++
++# Initialize the Rails application.
++Rails.application.initialize!
+Index: config/environments/production.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/environments/production.rb	(revision )
++++ config/environments/production.rb	(revision )
+@@ -0,0 +1,82 @@
++Rails.application.configure do
++  # Settings specified here will take precedence over those in config/application.rb.
++
++  # Code is not reloaded between requests.
++  config.cache_classes = true
++
++  # Eager load code on boot. This eager loads most of Rails and
++  # your application in memory, allowing both threaded web servers
++  # and those relying on copy on write to perform better.
++  # Rake tasks automatically ignore this option for performance.
++  config.eager_load = true
++
++  # Full error reports are disabled and caching is turned on.
++  config.consider_all_requests_local       = false
++  config.action_controller.perform_caching = true
++
++  # Enable Rack::Cache to put a simple HTTP cache in front of your application
++  # Add `rack-cache` to your Gemfile before enabling this.
++  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
++  # config.action_dispatch.rack_cache = true
++
++  # Disable Rails's static asset server (Apache or nginx will already do this).
++  config.serve_static_assets = false
++
++  # Compress JavaScripts and CSS.
++  config.assets.js_compressor = :uglifier
++  # config.assets.css_compressor = :sass
++
++  # Do not fallback to assets pipeline if a precompiled asset is missed.
++  config.assets.compile = false
++
++  # Generate digests for assets URLs.
++  config.assets.digest = true
++
++  # `config.assets.precompile` has moved to config/initializers/assets.rb
++
++  # Specifies the header that your server uses for sending files.
++  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
++  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
++
++  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
++  # config.force_ssl = true
++
++  # Set to :debug to see everything in the log.
++  config.log_level = :info
++
++  # Prepend all log lines with the following tags.
++  # config.log_tags = [ :subdomain, :uuid ]
++
++  # Use a different logger for distributed setups.
++  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
++
++  # Use a different cache store in production.
++  # config.cache_store = :mem_cache_store
++
++  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
++  # config.action_controller.asset_host = "http://assets.example.com"
++
++  # Precompile additional assets.
++  # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
++  # config.assets.precompile += %w( search.js )
++
++  # Ignore bad email addresses and do not raise email delivery errors.
++  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
++  # config.action_mailer.raise_delivery_errors = false
++
++  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
++  # the I18n.default_locale when a translation cannot be found).
++  config.i18n.fallbacks = true
++
++  # Send deprecation notices to registered listeners.
++  config.active_support.deprecation = :notify
++
++  # Disable automatic flushing of the log to improve performance.
++  # config.autoflush_log = false
++
++  # Use default logging formatter so that PID and timestamp are not suppressed.
++  config.log_formatter = ::Logger::Formatter.new
++
++  # Do not dump schema after migrations.
++  config.active_record.dump_schema_after_migration = false
++end
+Index: config/initializers/wrap_parameters.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/wrap_parameters.rb	(revision )
++++ config/initializers/wrap_parameters.rb	(revision )
+@@ -0,0 +1,14 @@
++# Be sure to restart your server when you modify this file.
++
++# This file contains settings for ActionController::ParamsWrapper which
++# is enabled by default.
++
++# Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
++ActiveSupport.on_load(:action_controller) do
++  wrap_parameters format: [:json] if respond_to?(:wrap_parameters)
++end
++
++# To enable root element in JSON for ActiveRecord objects.
++# ActiveSupport.on_load(:active_record) do
++#  self.include_root_in_json = true
++# end
+Index: app/views/layouts/application.html.erb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/views/layouts/application.html.erb	(revision )
++++ app/views/layouts/application.html.erb	(revision )
+@@ -0,0 +1,14 @@
++<!DOCTYPE html>
++<html>
++<head>
++  <title>FirstApp</title>
++  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
++  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
++  <%= csrf_meta_tags %>
++</head>
++<body>
++
++<%= yield %>
++
++</body>
++</html>
+Index: config/initializers/assets.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/assets.rb	(revision )
++++ config/initializers/assets.rb	(revision )
+@@ -0,0 +1,8 @@
++# Be sure to restart your server when you modify this file.
++
++# Version of your assets, change this if you want to expire all your assets.
++Rails.application.config.assets.version = '1.0'
++
++# Precompile additional assets.
++# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
++# Rails.application.config.assets.precompile += %w( search.js )
+Index: public/422.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/422.html	(revision )
++++ public/422.html	(revision )
+@@ -0,0 +1,67 @@
++<!DOCTYPE html>
++<html>
++<head>
++  <title>The change you wanted was rejected (422)</title>
++  <meta name="viewport" content="width=device-width,initial-scale=1">
++  <style>
++  body {
++    background-color: #EFEFEF;
++    color: #2E2F30;
++    text-align: center;
++    font-family: arial, sans-serif;
++    margin: 0;
++  }
++
++  div.dialog {
++    width: 95%;
++    max-width: 33em;
++    margin: 4em auto 0;
++  }
++
++  div.dialog > div {
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #BBB;
++    border-top: #B00100 solid 4px;
++    border-top-left-radius: 9px;
++    border-top-right-radius: 9px;
++    background-color: white;
++    padding: 7px 12% 0;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++
++  h1 {
++    font-size: 100%;
++    color: #730E15;
++    line-height: 1.5em;
++  }
++
++  div.dialog > p {
++    margin: 0 0 1em;
++    padding: 1em;
++    background-color: #F7F7F7;
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #999;
++    border-bottom-left-radius: 4px;
++    border-bottom-right-radius: 4px;
++    border-top-color: #DADADA;
++    color: #666;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++  </style>
++</head>
++
++<body>
++  <!-- This file lives in public/422.html -->
++  <div class="dialog">
++    <div>
++      <h1>The change you wanted was rejected.</h1>
++      <p>Maybe you tried to change something you didn't have access to.</p>
++    </div>
++    <p>If you are the application owner check the logs for more information.</p>
++  </div>
++</body>
++</html>
+Index: bin/spring
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- bin/spring	(revision )
++++ bin/spring	(revision )
+@@ -0,0 +1,18 @@
++#!/usr/bin/env ruby
++
++# This file loads spring without using Bundler, in order to be fast
++# It gets overwritten when you run the `spring binstub` command
++
++unless defined?(Spring)
++  require "rubygems"
++  require "bundler"
++
++  if match = Bundler.default_lockfile.read.match(/^GEM$.*?^    spring \((.*?)\)$.*?^$/m)
++    ENV["GEM_PATH"] = ([Bundler.bundle_path.to_s] + Gem.path).join(File::PATH_SEPARATOR)
++    ENV["GEM_HOME"] = ""
++    Gem.paths = ENV
++
++    gem "spring", match[1]
++    require "spring/binstub"
++  end
++end
+Index: .idea/dictionaries/ken.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dictionaries/ken.xml	(revision )
++++ .idea/dictionaries/ken.xml	(revision )
+@@ -0,0 +1,3 @@
++<component name="ProjectDictionaryState">
++  <dictionary name="ken" />
++</component>
+\ No newline at end of file
+Index: config/initializers/filter_parameter_logging.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/filter_parameter_logging.rb	(revision )
++++ config/initializers/filter_parameter_logging.rb	(revision )
+@@ -0,0 +1,4 @@
++# Be sure to restart your server when you modify this file.
++
++# Configure sensitive parameters which will be filtered from the log file.
++Rails.application.config.filter_parameters += [:password]
+Index: .idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.name	(revision )
++++ .idea/.name	(revision )
+@@ -0,0 +1,1 @@
++first-app
+\ No newline at end of file
+Index: .idea/scopes/scope_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/scopes/scope_settings.xml	(revision )
++++ .idea/scopes/scope_settings.xml	(revision )
+@@ -0,0 +1,5 @@
++<component name="DependencyValidationManager">
++  <state>
++    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
++  </state>
++</component>
+\ No newline at end of file
+Index: app/assets/javascripts/application.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/assets/javascripts/application.js	(revision )
++++ app/assets/javascripts/application.js	(revision )
+@@ -0,0 +1,16 @@
++// This is a manifest file that'll be compiled into application.js, which will include all the files
++// listed below.
++//
++// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
++// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
++//
++// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
++// compiled file.
++//
++// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
++// about supported directives.
++//
++//= require jquery
++//= require jquery_ujs
++//= require turbolinks
++//= require_tree .
+Index: README.rdoc
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- README.rdoc	(revision )
++++ README.rdoc	(revision )
+@@ -0,0 +1,28 @@
++== README
++
++This README would normally document whatever steps are necessary to get the
++application up and running.
++
++Things you may want to cover:
++
++* Ruby version
++
++* System dependencies
++
++* Configuration
++
++* Database creation
++
++* Database initialization
++
++* How to run the test suite
++
++* Services (job queues, cache servers, search engines, etc.)
++
++* Deployment instructions
++
++* ...
++
++
++Please feel free to use a different markup language if you do not plan to run
++<tt>rake doc:app</tt>.
+Index: test/test_helper.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- test/test_helper.rb	(revision )
++++ test/test_helper.rb	(revision )
+@@ -0,0 +1,10 @@
++ENV['RAILS_ENV'] ||= 'test'
++require File.expand_path('../../config/environment', __FILE__)
++require 'rails/test_help'
++
++class ActiveSupport::TestCase
++  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
++  fixtures :all
++
++  # Add more helper methods to be used by all tests here...
++end
+Index: config.ru
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config.ru	(revision )
++++ config.ru	(revision )
+@@ -0,0 +1,4 @@
++# This file is used by Rack-based servers to start the application.
++
++require ::File.expand_path('../config/environment',  __FILE__)
++run Rails.application
+Index: config/environments/test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/environments/test.rb	(revision )
++++ config/environments/test.rb	(revision )
+@@ -0,0 +1,39 @@
++Rails.application.configure do
++  # Settings specified here will take precedence over those in config/application.rb.
++
++  # The test environment is used exclusively to run your application's
++  # test suite. You never need to work with it otherwise. Remember that
++  # your test database is "scratch space" for the test suite and is wiped
++  # and recreated between test runs. Don't rely on the data there!
++  config.cache_classes = true
++
++  # Do not eager load code on boot. This avoids loading your whole application
++  # just for the purpose of running a single test. If you are using a tool that
++  # preloads Rails for running tests, you may have to set it to true.
++  config.eager_load = false
++
++  # Configure static asset server for tests with Cache-Control for performance.
++  config.serve_static_assets  = true
++  config.static_cache_control = 'public, max-age=3600'
++
++  # Show full error reports and disable caching.
++  config.consider_all_requests_local       = true
++  config.action_controller.perform_caching = false
++
++  # Raise exceptions instead of rendering exception templates.
++  config.action_dispatch.show_exceptions = false
++
++  # Disable request forgery protection in test environment.
++  config.action_controller.allow_forgery_protection = false
++
++  # Tell Action Mailer not to deliver emails to the real world.
++  # The :test delivery method accumulates sent emails in the
++  # ActionMailer::Base.deliveries array.
++  config.action_mailer.delivery_method = :test
++
++  # Print deprecation notices to the stderr.
++  config.active_support.deprecation = :stderr
++
++  # Raises error for missing translations
++  # config.action_view.raise_on_missing_translations = true
++end
+Index: config/locales/en.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/locales/en.yml	(revision )
++++ config/locales/en.yml	(revision )
+@@ -0,0 +1,23 @@
++# Files in the config/locales directory are used for internationalization
++# and are automatically loaded by Rails. If you want to use locales other
++# than English, add the necessary files in this directory.
++#
++# To use the locales, use `I18n.t`:
++#
++#     I18n.t 'hello'
++#
++# In views, this is aliased to just `t`:
++#
++#     <%= t('hello') %>
++#
++# To use a different locale, set it with `I18n.locale`:
++#
++#     I18n.locale = :es
++#
++# This would use the information in config/locales/es.yml.
++#
++# To learn more, please read the Rails Internationalization guide
++# available at http://guides.rubyonrails.org/i18n.html.
++
++en:
++  hello: "Hello world"
+Index: Rakefile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Rakefile	(revision )
++++ Rakefile	(revision )
+@@ -0,0 +1,6 @@
++# Add your own tasks in files placed in lib/tasks ending in .rake,
++# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
++
++require File.expand_path('../config/application', __FILE__)
++
++Rails.application.load_tasks
+Index: public/robots.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/robots.txt	(revision )
++++ public/robots.txt	(revision )
+@@ -0,0 +1,5 @@
++# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
++#
++# To ban all spiders from the entire site uncomment the next two lines:
++# User-agent: *
++# Disallow: /
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/encodings.xml	(revision )
++++ .idea/encodings.xml	(revision )
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
++</project>
++
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision )
++++ .idea/modules.xml	(revision )
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/first-app.iml" filepath="$PROJECT_DIR$/.idea/first-app.iml" />
++    </modules>
++  </component>
++</project>
++
+Index: public/500.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/500.html	(revision )
++++ public/500.html	(revision )
+@@ -0,0 +1,66 @@
++<!DOCTYPE html>
++<html>
++<head>
++  <title>We're sorry, but something went wrong (500)</title>
++  <meta name="viewport" content="width=device-width,initial-scale=1">
++  <style>
++  body {
++    background-color: #EFEFEF;
++    color: #2E2F30;
++    text-align: center;
++    font-family: arial, sans-serif;
++    margin: 0;
++  }
++
++  div.dialog {
++    width: 95%;
++    max-width: 33em;
++    margin: 4em auto 0;
++  }
++
++  div.dialog > div {
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #BBB;
++    border-top: #B00100 solid 4px;
++    border-top-left-radius: 9px;
++    border-top-right-radius: 9px;
++    background-color: white;
++    padding: 7px 12% 0;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++
++  h1 {
++    font-size: 100%;
++    color: #730E15;
++    line-height: 1.5em;
++  }
++
++  div.dialog > p {
++    margin: 0 0 1em;
++    padding: 1em;
++    background-color: #F7F7F7;
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #999;
++    border-bottom-left-radius: 4px;
++    border-bottom-right-radius: 4px;
++    border-top-color: #DADADA;
++    color: #666;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++  </style>
++</head>
++
++<body>
++  <!-- This file lives in public/500.html -->
++  <div class="dialog">
++    <div>
++      <h1>We're sorry, but something went wrong.</h1>
++    </div>
++    <p>If you are the application owner check the logs for more information.</p>
++  </div>
++</body>
++</html>
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision )
++++ .gitignore	(revision )
+@@ -0,0 +1,16 @@
++# See https://help.github.com/articles/ignoring-files for more about ignoring files.
++#
++# If you find yourself ignoring temporary files generated by your text editor
++# or operating system, you probably want to add a global ignore instead:
++#   git config --global core.excludesfile '~/.gitignore_global'
++
++# Ignore bundler config.
++/.bundle
++
++# Ignore the default SQLite database.
++/db/*.sqlite3
++/db/*.sqlite3-journal
++
++# Ignore all logfiles and tempfiles.
++/log/*.log
++/tmp
+Index: config/application.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/application.rb	(revision )
++++ config/application.rb	(revision )
+@@ -0,0 +1,23 @@
++require File.expand_path('../boot', __FILE__)
++
++require 'rails/all'
++
++# Require the gems listed in Gemfile, including any gems
++# you've limited to :test, :development, or :production.
++Bundler.require(*Rails.groups)
++
++module FirstApp
++  class Application < Rails::Application
++    # Settings in config/environments/* take precedence over those specified here.
++    # Application configuration should go into files in config/initializers
++    # -- all .rb files in that directory are automatically loaded.
++
++    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
++    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
++    # config.time_zone = 'Central Time (US & Canada)'
++
++    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
++    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
++    # config.i18n.default_locale = :de
++  end
++end
+Index: config/initializers/cookies_serializer.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/cookies_serializer.rb	(revision )
++++ config/initializers/cookies_serializer.rb	(revision )
+@@ -0,0 +1,3 @@
++# Be sure to restart your server when you modify this file.
++
++Rails.application.config.action_dispatch.cookies_serializer = :json
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision )
++++ .idea/misc.xml	(revision )
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectInspectionProfilesVisibleTreeState">
++    <entry key="Project Default">
++      <profile-state>
++        <expanded-state>
++          <State>
++            <id />
++          </State>
++        </expanded-state>
++        <selected-state>
++          <State>
++            <id>CoffeeScript</id>
++          </State>
++        </selected-state>
++      </profile-state>
++    </entry>
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="RVM: ruby-2.1.2" project-jdk-type="RUBY_SDK" />
++  <component name="masterDetails">
++    <states>
++      <state key="ScopeChooserConfigurable.UI">
++        <settings>
++          <splitter-proportions>
++            <option name="proportions">
++              <list>
++                <option value="0.2" />
++              </list>
++            </option>
++          </splitter-proportions>
++        </settings>
++      </state>
++    </states>
++  </component>
++</project>
++
+Index: app/controllers/application_controller.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/controllers/application_controller.rb	(revision )
++++ app/controllers/application_controller.rb	(revision )
+@@ -0,0 +1,5 @@
++class ApplicationController < ActionController::Base
++  # Prevent CSRF attacks by raising an exception.
++  # For APIs, you may want to use :null_session instead.
++  protect_from_forgery with: :exception
++end
+Index: Gemfile.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Gemfile.lock	(revision )
++++ Gemfile.lock	(revision )
+@@ -0,0 +1,125 @@
++GEM
++  remote: https://rubygems.org/
++  specs:
++    actionmailer (4.1.4)
++      actionpack (= 4.1.4)
++      actionview (= 4.1.4)
++      mail (~> 2.5.4)
++    actionpack (4.1.4)
++      actionview (= 4.1.4)
++      activesupport (= 4.1.4)
++      rack (~> 1.5.2)
++      rack-test (~> 0.6.2)
++    actionview (4.1.4)
++      activesupport (= 4.1.4)
++      builder (~> 3.1)
++      erubis (~> 2.7.0)
++    activemodel (4.1.4)
++      activesupport (= 4.1.4)
++      builder (~> 3.1)
++    activerecord (4.1.4)
++      activemodel (= 4.1.4)
++      activesupport (= 4.1.4)
++      arel (~> 5.0.0)
++    activesupport (4.1.4)
++      i18n (~> 0.6, >= 0.6.9)
++      json (~> 1.7, >= 1.7.7)
++      minitest (~> 5.1)
++      thread_safe (~> 0.1)
++      tzinfo (~> 1.1)
++    arel (5.0.1.20140414130214)
++    builder (3.2.2)
++    coffee-rails (4.0.1)
++      coffee-script (>= 2.2.0)
++      railties (>= 4.0.0, < 5.0)
++    coffee-script (2.3.0)
++      coffee-script-source
++      execjs
++    coffee-script-source (1.7.1)
++    erubis (2.7.0)
++    execjs (2.2.1)
++    hike (1.2.3)
++    i18n (0.6.11)
++    jbuilder (2.1.3)
++      activesupport (>= 3.0.0, < 5)
++      multi_json (~> 1.2)
++    jquery-rails (3.1.1)
++      railties (>= 3.0, < 5.0)
++      thor (>= 0.14, < 2.0)
++    json (1.8.1)
++    mail (2.5.4)
++      mime-types (~> 1.16)
++      treetop (~> 1.4.8)
++    mime-types (1.25.1)
++    minitest (5.4.0)
++    multi_json (1.10.1)
++    polyglot (0.3.5)
++    rack (1.5.2)
++    rack-test (0.6.2)
++      rack (>= 1.0)
++    rails (4.1.4)
++      actionmailer (= 4.1.4)
++      actionpack (= 4.1.4)
++      actionview (= 4.1.4)
++      activemodel (= 4.1.4)
++      activerecord (= 4.1.4)
++      activesupport (= 4.1.4)
++      bundler (>= 1.3.0, < 2.0)
++      railties (= 4.1.4)
++      sprockets-rails (~> 2.0)
++    railties (4.1.4)
++      actionpack (= 4.1.4)
++      activesupport (= 4.1.4)
++      rake (>= 0.8.7)
++      thor (>= 0.18.1, < 2.0)
++    rake (10.3.2)
++    rdoc (4.1.1)
++      json (~> 1.4)
++    sass (3.2.19)
++    sass-rails (4.0.3)
++      railties (>= 4.0.0, < 5.0)
++      sass (~> 3.2.0)
++      sprockets (~> 2.8, <= 2.11.0)
++      sprockets-rails (~> 2.0)
++    sdoc (0.4.0)
++      json (~> 1.8)
++      rdoc (~> 4.0, < 5.0)
++    spring (1.1.3)
++    sprockets (2.11.0)
++      hike (~> 1.2)
++      multi_json (~> 1.0)
++      rack (~> 1.0)
++      tilt (~> 1.1, != 1.3.0)
++    sprockets-rails (2.1.3)
++      actionpack (>= 3.0)
++      activesupport (>= 3.0)
++      sprockets (~> 2.8)
++    sqlite3 (1.3.9)
++    thor (0.19.1)
++    thread_safe (0.3.4)
++    tilt (1.4.1)
++    treetop (1.4.15)
++      polyglot
++      polyglot (>= 0.3.1)
++    turbolinks (2.2.2)
++      coffee-rails
++    tzinfo (1.2.1)
++      thread_safe (~> 0.1)
++    uglifier (2.5.3)
++      execjs (>= 0.3.0)
++      json (>= 1.8.0)
++
++PLATFORMS
++  ruby
++
++DEPENDENCIES
++  coffee-rails (~> 4.0.0)
++  jbuilder (~> 2.0)
++  jquery-rails
++  rails (= 4.1.4)
++  sass-rails (~> 4.0.3)
++  sdoc (~> 0.4.0)
++  spring
++  sqlite3
++  turbolinks
++  uglifier (>= 1.3.0)
+Index: config/routes.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/routes.rb	(revision )
++++ config/routes.rb	(revision )
+@@ -0,0 +1,56 @@
++Rails.application.routes.draw do
++  # The priority is based upon order of creation: first created -> highest priority.
++  # See how all your routes lay out with "rake routes".
++
++  # You can have the root of your site routed with "root"
++  # root 'welcome#index'
++
++  # Example of regular route:
++  #   get 'products/:id' => 'catalog#view'
++
++  # Example of named route that can be invoked with purchase_url(id: product.id)
++  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
++
++  # Example resource route (maps HTTP verbs to controller actions automatically):
++  #   resources :products
++
++  # Example resource route with options:
++  #   resources :products do
++  #     member do
++  #       get 'short'
++  #       post 'toggle'
++  #     end
++  #
++  #     collection do
++  #       get 'sold'
++  #     end
++  #   end
++
++  # Example resource route with sub-resources:
++  #   resources :products do
++  #     resources :comments, :sales
++  #     resource :seller
++  #   end
++
++  # Example resource route with more complex sub-resources:
++  #   resources :products do
++  #     resources :comments
++  #     resources :sales do
++  #       get 'recent', on: :collection
++  #     end
++  #   end
++
++  # Example resource route with concerns:
++  #   concern :toggleable do
++  #     post 'toggle'
++  #   end
++  #   resources :posts, concerns: :toggleable
++  #   resources :photos, concerns: :toggleable
++
++  # Example resource route within a namespace:
++  #   namespace :admin do
++  #     # Directs /admin/products/* to Admin::ProductsController
++  #     # (app/controllers/admin/products_controller.rb)
++  #     resources :products
++  #   end
++end
+Index: bin/bundle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- bin/bundle	(revision )
++++ bin/bundle	(revision )
+@@ -0,0 +1,3 @@
++#!/usr/bin/env ruby
++ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
++load Gem.bin_path('bundler', 'bundle')
+Index: bin/rails
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- bin/rails	(revision )
++++ bin/rails	(revision )
+@@ -0,0 +1,8 @@
++#!/usr/bin/env ruby
++begin
++  load File.expand_path("../spring", __FILE__)
++rescue LoadError
++end
++APP_PATH = File.expand_path('../../config/application',  __FILE__)
++require_relative '../config/boot'
++require 'rails/commands'
+Index: config/environments/development.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/environments/development.rb	(revision )
++++ config/environments/development.rb	(revision )
+@@ -0,0 +1,37 @@
++Rails.application.configure do
++  # Settings specified here will take precedence over those in config/application.rb.
++
++  # In the development environment your application's code is reloaded on
++  # every request. This slows down response time but is perfect for development
++  # since you don't have to restart the web server when you make code changes.
++  config.cache_classes = false
++
++  # Do not eager load code on boot.
++  config.eager_load = false
++
++  # Show full error reports and disable caching.
++  config.consider_all_requests_local       = true
++  config.action_controller.perform_caching = false
++
++  # Don't care if the mailer can't send.
++  config.action_mailer.raise_delivery_errors = false
++
++  # Print deprecation notices to the Rails logger.
++  config.active_support.deprecation = :log
++
++  # Raise an error on page load if there are pending migrations.
++  config.active_record.migration_error = :page_load
++
++  # Debug mode disables concatenation and preprocessing of assets.
++  # This option may cause significant delays in view rendering with a large
++  # number of complex assets.
++  config.assets.debug = true
++
++  # Adds additional error checking when serving assets at runtime.
++  # Checks for improperly declared sprockets dependencies.
++  # Raises helpful error messages.
++  config.assets.raise_runtime_errors = true
++
++  # Raises error for missing translations
++  # config.action_view.raise_on_missing_translations = true
++end
+Index: config/initializers/backtrace_silencers.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/backtrace_silencers.rb	(revision )
++++ config/initializers/backtrace_silencers.rb	(revision )
+@@ -0,0 +1,7 @@
++# Be sure to restart your server when you modify this file.
++
++# You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
++# Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
++
++# You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
++# Rails.backtrace_cleaner.remove_silencers!
+Index: .idea/first-app.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/first-app.iml	(revision )
++++ .idea/first-app.iml	(revision )
+@@ -0,0 +1,176 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="RUBY_MODULE" version="4">
++  <component name="CompassSettings">
++    <option name="compassSupportEnabled" value="true" />
++  </component>
++  <component name="FacetManager">
++    <facet type="RailsFacetType" name="Ruby on Rails">
++      <configuration>
++        <RAILS_FACET_CONFIG_ID NAME="RAILS_FACET_SUPPORT_REMOVED" VALUE="false" />
++        <RAILS_FACET_CONFIG_ID NAME="RAILS_TESTS_SOURCES_PATCHED" VALUE="true" />
++        <RAILS_FACET_CONFIG_ID NAME="RAILS_FACET_APPLICATION_ROOT" VALUE="$MODULE_DIR$" />
++      </configuration>
++    </facet>
++  </component>
++  <component name="ModuleRunConfigurationManager">
++    <configuration default="false" name="test: first-app" type="RakeRunConfigurationType" factoryName="Rake">
++      <module name="first-app" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
++      <envs>
++        <env name="RAILS_ENV" value="test" />
++      </envs>
++      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
++      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
++      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
++        <COVERAGE_PATTERN ENABLED="true">
++          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
++        </COVERAGE_PATTERN>
++      </EXTENSION>
++      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_NAME" VALUE="test" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_ARGS" VALUE="" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_ATTACHED_TEST_FRAMEWORKS" VALUE=":test_unit " />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_TRACE" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_DRYRUN" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_PREREQS" VALUE="false" />
++      <method />
++    </configuration>
++    <configuration default="false" name="spec: first-app" type="RakeRunConfigurationType" factoryName="Rake">
++      <module name="first-app" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
++      <envs />
++      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
++      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
++      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
++        <COVERAGE_PATTERN ENABLED="true">
++          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
++        </COVERAGE_PATTERN>
++      </EXTENSION>
++      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_NAME" VALUE="spec" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_ARGS" VALUE="" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_ATTACHED_TEST_FRAMEWORKS" VALUE=":rspec " />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_TRACE" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_DRYRUN" VALUE="false" />
++      <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_PREREQS" VALUE="false" />
++      <method />
++    </configuration>
++    <configuration default="false" name="Production: first-app" type="RailsRunConfigurationType" factoryName="Rails">
++      <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
++      <module name="first-app" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
++      <envs />
++      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
++      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
++      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
++        <COVERAGE_PATTERN ENABLED="true">
++          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
++        </COVERAGE_PATTERN>
++      </EXTENSION>
++      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="production" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
++      <method />
++    </configuration>
++    <configuration default="false" name="Development: first-app" type="RailsRunConfigurationType" factoryName="Rails">
++      <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
++      <module name="first-app" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
++      <envs />
++      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
++      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
++      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
++        <COVERAGE_PATTERN ENABLED="true">
++          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
++        </COVERAGE_PATTERN>
++      </EXTENSION>
++      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
++      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
++      <method />
++    </configuration>
++  </component>
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
++      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
++      <excludeFolder url="file://$MODULE_DIR$/tmp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" scope="PROVIDED" name="actionmailer (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="actionpack (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="actionview (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="activemodel (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="activerecord (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="arel (v5.0.1.20140414130214, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.2, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.6.5, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v4.0.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.3.0, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.7.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="execjs (v2.2.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.3, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.11, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.1.3, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v3.1.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="mail (v2.5.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="mime-types (v1.25.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.4.0, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.10.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.5, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="rack (v1.5.2, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.2, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="rails (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="railties (v4.1.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="rake (v10.3.2, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="rdoc (v4.1.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sass (v3.2.19, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sass-rails (v4.0.3, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sdoc (v0.4.0, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="spring (v1.1.3, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.11.0, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.1.3, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.3.9, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="thread_safe (v0.3.4, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="tilt (v1.4.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="treetop (v1.4.15, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="turbolinks (v2.2.2, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="tzinfo (v1.2.1, RVM: ruby-2.1.2) [gem]" level="application" />
++    <orderEntry type="library" scope="PROVIDED" name="uglifier (v2.5.3, RVM: ruby-2.1.2) [gem]" level="application" />
++  </component>
++  <component name="RModuleSettingsStorage">
++    <LOAD_PATH number="0" />
++    <I18N_FOLDERS number="1" string0="$MODULE_DIR$/config/locales" />
++  </component>
++</module>
++
+Index: bin/rake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- bin/rake	(revision )
++++ bin/rake	(revision )
+@@ -0,0 +1,8 @@
++#!/usr/bin/env ruby
++begin
++  load File.expand_path("../spring", __FILE__)
++rescue LoadError
++end
++require_relative '../config/boot'
++require 'rake'
++Rake.application.run
+Index: app/assets/stylesheets/application.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/assets/stylesheets/application.css	(revision )
++++ app/assets/stylesheets/application.css	(revision )
+@@ -0,0 +1,15 @@
++/*
++ * This is a manifest file that'll be compiled into application.css, which will include all the files
++ * listed below.
++ *
++ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
++ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
++ *
++ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
++ * compiled file so the styles you add here take precedence over styles defined in any styles
++ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
++ * file per style scope.
++ *
++ *= require_tree .
++ *= require_self
++ */
+Index: .idea/.rakeTasks
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.rakeTasks	(revision )
++++ .idea/.rakeTasks	(revision )
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<Settings><!--This file was automatically generated by Ruby plugin.
++You are allowed to: 
++1. Remove rake task
++2. Add existing rake tasks
++To add existing rake tasks automatically delete this file and reload the project.
++--><RakeGroup description="" fullCmd="" taksId="rake"><RakeTask description="List versions of all Rails frameworks and the environment" fullCmd="about" taksId="about" /><RakeGroup description="" fullCmd="" taksId="assets"><RakeTask description="Remove old compiled assets" fullCmd="assets:clean[keep]" taksId="clean[keep]" /><RakeTask description="Remove compiled assets" fullCmd="assets:clobber" taksId="clobber" /><RakeTask description="Load asset compile environment" fullCmd="assets:environment" taksId="environment" /><RakeTask description="Compile all the assets named in config.assets.precompile" fullCmd="assets:precompile" taksId="precompile" /><RakeTask description="" fullCmd="assets:clean" taksId="clean" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="cache_digests"><RakeTask description="Lookup first-level dependencies for TEMPLATE (like messages/show or comments/_comment.html)" fullCmd="cache_digests:dependencies" taksId="dependencies" /><RakeTask description="Lookup nested dependencies for TEMPLATE (like messages/show or comments/_comment.html)" fullCmd="cache_digests:nested_dependencies" taksId="nested_dependencies" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="db"><RakeTask description="Creates the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config)" fullCmd="db:create" taksId="create" /><RakeTask description="Drops the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:drop:all to drop all databases in the config)" fullCmd="db:drop" taksId="drop" /><RakeGroup description="" fullCmd="" taksId="fixtures"><RakeTask description="Load fixtures into the current environment's database" fullCmd="db:fixtures:load" taksId="load" /><RakeTask description="" fullCmd="db:fixtures:identify" taksId="identify" /></RakeGroup><RakeTask description="Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)" fullCmd="db:migrate" taksId="migrate" /><RakeGroup description="" fullCmd="" taksId="migrate"><RakeTask description="Display status of migrations" fullCmd="db:migrate:status" taksId="status" /><RakeTask description="" fullCmd="db:migrate:down" taksId="down" /><RakeTask description="" fullCmd="db:migrate:redo" taksId="redo" /><RakeTask description="" fullCmd="db:migrate:reset" taksId="reset" /><RakeTask description="" fullCmd="db:migrate:up" taksId="up" /></RakeGroup><RakeTask description="Rolls the schema back to the previous version (specify steps w/ STEP=n)" fullCmd="db:rollback" taksId="rollback" /><RakeGroup description="" fullCmd="" taksId="schema"><RakeGroup description="" fullCmd="" taksId="cache"><RakeTask description="Clear a db/schema_cache.dump file" fullCmd="db:schema:cache:clear" taksId="clear" /><RakeTask description="Create a db/schema_cache.dump file" fullCmd="db:schema:cache:dump" taksId="dump" /></RakeGroup><RakeTask description="Create a db/schema.rb file that is portable against any DB supported by AR" fullCmd="db:schema:dump" taksId="dump" /><RakeTask description="Load a schema.rb file into the database" fullCmd="db:schema:load" taksId="load" /><RakeTask description="" fullCmd="db:schema:load_if_ruby" taksId="load_if_ruby" /></RakeGroup><RakeTask description="Load the seed data from db/seeds.rb" fullCmd="db:seed" taksId="seed" /><RakeTask description="Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the database first)" fullCmd="db:setup" taksId="setup" /><RakeGroup description="" fullCmd="" taksId="structure"><RakeTask description="Dump the database structure to db/structure.sql" fullCmd="db:structure:dump" taksId="dump" /><RakeTask description="" fullCmd="db:structure:load" taksId="load" /><RakeTask description="" fullCmd="db:structure:load_if_sql" taksId="load_if_sql" /></RakeGroup><RakeTask description="Retrieves the current schema version number" fullCmd="db:version" taksId="version" /><RakeTask description="" fullCmd="db:_dump" taksId="_dump" /><RakeTask description="" fullCmd="db:abort_if_pending_migrations" taksId="abort_if_pending_migrations" /><RakeTask description="" fullCmd="db:charset" taksId="charset" /><RakeTask description="" fullCmd="db:collation" taksId="collation" /><RakeGroup description="" fullCmd="" taksId="create"><RakeTask description="" fullCmd="db:create:all" taksId="all" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="drop"><RakeTask description="" fullCmd="db:drop:all" taksId="all" /></RakeGroup><RakeTask description="" fullCmd="db:forward" taksId="forward" /><RakeTask description="" fullCmd="db:load_config" taksId="load_config" /><RakeTask description="" fullCmd="db:reset" taksId="reset" /><RakeGroup description="" fullCmd="" taksId="test"><RakeTask description="" fullCmd="db:test:clone" taksId="clone" /><RakeTask description="" fullCmd="db:test:clone_schema" taksId="clone_schema" /><RakeTask description="" fullCmd="db:test:clone_structure" taksId="clone_structure" /><RakeTask description="" fullCmd="db:test:deprecated" taksId="deprecated" /><RakeTask description="" fullCmd="db:test:load" taksId="load" /><RakeTask description="" fullCmd="db:test:load_schema" taksId="load_schema" /><RakeTask description="" fullCmd="db:test:load_structure" taksId="load_structure" /><RakeTask description="" fullCmd="db:test:prepare" taksId="prepare" /><RakeTask description="" fullCmd="db:test:purge" taksId="purge" /></RakeGroup></RakeGroup><RakeGroup description="" fullCmd="" taksId="doc"><RakeTask description="Generate docs for the app -- also available doc:rails, doc:guides (options: TEMPLATE=/rdoc-template.rb, TITLE=&quot;Custom Title&quot;)" fullCmd="doc:app" taksId="app" /><RakeTask description="" fullCmd="doc:clobber" taksId="clobber" /><RakeTask description="" fullCmd="doc:clobber_app" taksId="clobber_app" /><RakeTask description="" fullCmd="doc:clobber_rails" taksId="clobber_rails" /><RakeTask description="" fullCmd="doc:guides" taksId="guides" /><RakeTask description="" fullCmd="doc:rails" taksId="rails" /><RakeTask description="" fullCmd="doc:reapp" taksId="reapp" /><RakeTask description="" fullCmd="doc:rerails" taksId="rerails" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="log"><RakeTask description="Truncates all *.log files in log/ to zero bytes (specify which logs with LOGS=test,development)" fullCmd="log:clear" taksId="clear" /></RakeGroup><RakeTask description="Prints out your Rack middleware stack" fullCmd="middleware" taksId="middleware" /><RakeTask description="Enumerate all annotations (use notes:optimize, :fixme, :todo for focus)" fullCmd="notes" taksId="notes" /><RakeGroup description="" fullCmd="" taksId="notes"><RakeTask description="Enumerate a custom annotation, specify with ANNOTATION=CUSTOM" fullCmd="notes:custom" taksId="custom" /><RakeTask description="" fullCmd="notes:fixme" taksId="fixme" /><RakeTask description="" fullCmd="notes:optimize" taksId="optimize" /><RakeTask description="" fullCmd="notes:todo" taksId="todo" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="rails"><RakeTask description="Applies the template supplied by LOCATION=(/path/to/template) or URL" fullCmd="rails:template" taksId="template" /><RakeTask description="Update configs and some other initially generated files (or use just update:configs or update:bin)" fullCmd="rails:update" taksId="update" /><RakeGroup description="" fullCmd="" taksId="templates"><RakeTask description="" fullCmd="rails:templates:copy" taksId="copy" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="update"><RakeTask description="" fullCmd="rails:update:bin" taksId="bin" /><RakeTask description="" fullCmd="rails:update:configs" taksId="configs" /></RakeGroup></RakeGroup><RakeTask description="Print out all defined routes in match order, with names" fullCmd="routes" taksId="routes" /><RakeTask description="Generate a cryptographically secure secret key (this is typically used to generate a secret for cookie sessions)" fullCmd="secret" taksId="secret" /><RakeTask description="Report code statistics (KLOCs, etc) from the application" fullCmd="stats" taksId="stats" /><RakeTask description="Runs test:units, test:functionals, test:generators, test:integration together" fullCmd="test" taksId="test" /><RakeGroup description="" fullCmd="" taksId="test"><RakeTask description="Run tests quickly by merging all types and not resetting db" fullCmd="test:all" taksId="all" /><RakeGroup description="" fullCmd="" taksId="all"><RakeTask description="Run tests quickly, but also reset db" fullCmd="test:all:db" taksId="db" /></RakeGroup><RakeTask description="" fullCmd="test:controllers" taksId="controllers" /><RakeTask description="" fullCmd="test:functionals" taksId="functionals" /><RakeTask description="" fullCmd="test:generators" taksId="generators" /><RakeTask description="" fullCmd="test:helpers" taksId="helpers" /><RakeTask description="" fullCmd="test:integration" taksId="integration" /><RakeTask description="" fullCmd="test:mailers" taksId="mailers" /><RakeTask description="" fullCmd="test:models" taksId="models" /><RakeTask description="" fullCmd="test:prepare" taksId="prepare" /><RakeTask description="" fullCmd="test:run" taksId="run" /><RakeTask description="" fullCmd="test:single" taksId="single" /><RakeTask description="" fullCmd="test:units" taksId="units" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="time"><RakeGroup description="" fullCmd="" taksId="zones"><RakeTask description="Displays all time zones, also available: time:zones:us, time:zones:local -- filter with OFFSET parameter, e.g., OFFSET=-6" fullCmd="time:zones:all" taksId="all" /><RakeTask description="" fullCmd="time:zones:local" taksId="local" /><RakeTask description="" fullCmd="time:zones:us" taksId="us" /></RakeGroup></RakeGroup><RakeGroup description="" fullCmd="" taksId="tmp"><RakeTask description="Clear session, cache, and socket files from tmp/ (narrow w/ tmp:sessions:clear, tmp:cache:clear, tmp:sockets:clear)" fullCmd="tmp:clear" taksId="clear" /><RakeTask description="Creates tmp directories for sessions, cache, sockets, and pids" fullCmd="tmp:create" taksId="create" /><RakeGroup description="" fullCmd="" taksId="cache"><RakeTask description="" fullCmd="tmp:cache:clear" taksId="clear" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="pids"><RakeTask description="" fullCmd="tmp:pids:clear" taksId="clear" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="sessions"><RakeTask description="" fullCmd="tmp:sessions:clear" taksId="clear" /></RakeGroup><RakeGroup description="" fullCmd="" taksId="sockets"><RakeTask description="" fullCmd="tmp:sockets:clear" taksId="clear" /></RakeGroup></RakeGroup><RakeTask description="" fullCmd="default" taksId="default" /><RakeTask description="" fullCmd="doc" taksId="doc" /><RakeTask description="" fullCmd="doc/app" taksId="doc/app" /><RakeTask description="" fullCmd="doc/app/index.html" taksId="doc/app/index.html" /><RakeTask description="" fullCmd="environment" taksId="environment" /><RakeTask description="" fullCmd="html" taksId="html" /><RakeTask description="" fullCmd="html/index.html" taksId="html/index.html" /><RakeGroup description="" fullCmd="" taksId="railties"><RakeGroup description="" fullCmd="" taksId="install"><RakeTask description="" fullCmd="railties:install:migrations" taksId="migrations" /></RakeGroup></RakeGroup><RakeTask description="" fullCmd="tmp" taksId="tmp" /><RakeTask description="" fullCmd="tmp/cache" taksId="tmp/cache" /><RakeTask description="" fullCmd="tmp/cache/assets" taksId="tmp/cache/assets" /><RakeTask description="" fullCmd="tmp/cache/assets/development" taksId="tmp/cache/assets/development" /><RakeTask description="" fullCmd="tmp/cache/assets/production" taksId="tmp/cache/assets/production" /><RakeTask description="" fullCmd="tmp/cache/assets/test" taksId="tmp/cache/assets/test" /><RakeTask description="" fullCmd="tmp/pids" taksId="tmp/pids" /><RakeTask description="" fullCmd="tmp/sessions" taksId="tmp/sessions" /><RakeTask description="" fullCmd="tmp/sockets" taksId="tmp/sockets" /></RakeGroup></Settings>
+Index: config/initializers/session_store.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/session_store.rb	(revision )
++++ config/initializers/session_store.rb	(revision )
+@@ -0,0 +1,3 @@
++# Be sure to restart your server when you modify this file.
++
++Rails.application.config.session_store :cookie_store, key: '_first-app_session'
+Index: public/404.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/404.html	(revision )
++++ public/404.html	(revision )
+@@ -0,0 +1,67 @@
++<!DOCTYPE html>
++<html>
++<head>
++  <title>The page you were looking for doesn't exist (404)</title>
++  <meta name="viewport" content="width=device-width,initial-scale=1">
++  <style>
++  body {
++    background-color: #EFEFEF;
++    color: #2E2F30;
++    text-align: center;
++    font-family: arial, sans-serif;
++    margin: 0;
++  }
++
++  div.dialog {
++    width: 95%;
++    max-width: 33em;
++    margin: 4em auto 0;
++  }
++
++  div.dialog > div {
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #BBB;
++    border-top: #B00100 solid 4px;
++    border-top-left-radius: 9px;
++    border-top-right-radius: 9px;
++    background-color: white;
++    padding: 7px 12% 0;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++
++  h1 {
++    font-size: 100%;
++    color: #730E15;
++    line-height: 1.5em;
++  }
++
++  div.dialog > p {
++    margin: 0 0 1em;
++    padding: 1em;
++    background-color: #F7F7F7;
++    border: 1px solid #CCC;
++    border-right-color: #999;
++    border-left-color: #999;
++    border-bottom-color: #999;
++    border-bottom-left-radius: 4px;
++    border-bottom-right-radius: 4px;
++    border-top-color: #DADADA;
++    color: #666;
++    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
++  }
++  </style>
++</head>
++
++<body>
++  <!-- This file lives in public/404.html -->
++  <div class="dialog">
++    <div>
++      <h1>The page you were looking for doesn't exist.</h1>
++      <p>You may have mistyped the address or the page may have moved.</p>
++    </div>
++    <p>If you are the application owner check the logs for more information.</p>
++  </div>
++</body>
++</html>
+Index: .idea/.generators
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.generators	(revision )
++++ .idea/.generators	(revision )
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<Settings><!--This file was automatically generated by Ruby plugin.
++You are allowed to: 
++1. Reorder generators
++2. Remove generators
++3. Add installed generators
++To add new installed generators automatically delete this file and reload the project.
++--><GeneratorsGroup><Generator name="assets" /><Generator name="coffee:assets" /><Generator name="controller" /><Generator name="generator" /><Generator name="helper" /><Generator name="integration_test" /><Generator name="jbuilder" /><Generator name="jquery:install" /><Generator name="js:assets" /><Generator name="mailer" /><Generator name="migration" /><Generator name="model" /><Generator name="resource" /><Generator name="scaffold" /><Generator name="scaffold_controller" /><Generator name="task" /><Generator name="test_unit:generator" /><Generator name="test_unit:plugin" /></GeneratorsGroup></Settings>
+Index: config/initializers/mime_types.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/initializers/mime_types.rb	(revision )
++++ config/initializers/mime_types.rb	(revision )
+@@ -0,0 +1,4 @@
++# Be sure to restart your server when you modify this file.
++
++# Add new mime types for use in respond_to blocks:
++# Mime::Type.register "text/richtext", :rtf
+Index: Gemfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Gemfile	(revision )
++++ Gemfile	(revision )
+@@ -0,0 +1,40 @@
++source 'https://rubygems.org'
++
++
++# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
++gem 'rails', '4.1.4'
++# Use sqlite3 as the database for Active Record
++gem 'sqlite3'
++# Use SCSS for stylesheets
++gem 'sass-rails', '~> 4.0.3'
++# Use Uglifier as compressor for JavaScript assets
++gem 'uglifier', '>= 1.3.0'
++# Use CoffeeScript for .js.coffee assets and views
++gem 'coffee-rails', '~> 4.0.0'
++# See https://github.com/sstephenson/execjs#readme for more supported runtimes
++# gem 'therubyracer',  platforms: :ruby
++
++# Use jquery as the JavaScript library
++gem 'jquery-rails'
++# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
++gem 'turbolinks'
++# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
++gem 'jbuilder', '~> 2.0'
++# bundle exec rake doc:rails generates the API under doc/api.
++gem 'sdoc', '~> 0.4.0',          group: :doc
++
++# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
++gem 'spring',        group: :development
++
++# Use ActiveModel has_secure_password
++# gem 'bcrypt', '~> 3.1.7'
++
++# Use unicorn as the app server
++# gem 'unicorn'
++
++# Use Capistrano for deployment
++# gem 'capistrano-rails', group: :development
++
++# Use debugger
++# gem 'debugger', group: [:development, :test]
++
+Index: app/helpers/application_helper.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/helpers/application_helper.rb	(revision )
++++ app/helpers/application_helper.rb	(revision )
+@@ -0,0 +1,2 @@
++module ApplicationHelper
++end
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision )
++++ .idea/vcs.xml	(revision )
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
++
+Index: config/database.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- config/database.yml	(revision )
++++ config/database.yml	(revision )
+@@ -0,0 +1,25 @@
++# SQLite version 3.x
++#   gem install sqlite3
++#
++#   Ensure the SQLite 3 gem is defined in your Gemfile
++#   gem 'sqlite3'
++#
++default: &default
++  adapter: sqlite3
++  pool: 5
++  timeout: 5000
++
++development:
++  <<: *default
++  database: db/development.sqlite3
++
++# Warning: The database defined as "test" will be erased and
++# re-generated from your development database when you run "rake".
++# Do not set this db to the same as development or production.
++test:
++  <<: *default
++  database: db/test.sqlite3
++
++production:
++  <<: *default
++  database: db/production.sqlite3
